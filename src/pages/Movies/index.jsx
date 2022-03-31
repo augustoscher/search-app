@@ -1,66 +1,49 @@
-import { useEffect, useState } from 'react';
-
 import Base from '../../templates/Base';
+import useFetch from 'hooks/UseFetch';
 import List, { ListItem } from '../../components/List';
-import client from '../../graphql';
 import MOVIE_QUERY from 'graphql/queries/movies';
 
 import * as S from './styles';
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isLoading, isError } = useFetch({
+    initialQuery: MOVIE_QUERY,
+    initialData: [],
+  });
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      setIsLoading(true);
-      setIsError(false);
-
-      try {
-        const { data } = await client.query({
-          query: MOVIE_QUERY,
-        });
-
-        setMovies(data.movies);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMovies();
-  }, []);
+  const { movies = [] } = data;
 
   return (
     <Base>
       <h1>Movies</h1>
 
-      {isLoading && <b>Loading...</b>}
-      {isError && <b>ERROR</b>}
+      {isError && <div>Something went wrong ...</div>}
 
-      <List>
-        {movies.map((item) => (
-          <ListItem key={item.id}>
-            <S.Title>
-              {item.name} • {item.year}
-            </S.Title>
-            <S.Director>
-              Directed by: {item.director.name} - {item.director.country}
-            </S.Director>
-            <S.Producers>
-              Produced by:{' '}
-              {item.producers.map((prod, idx) => (
-                <span key={idx}>
-                  {prod.name}
-                  {idx < item.producers.length - 1 ? ', ' : ''}
-                </span>
-              ))}
-            </S.Producers>
-          </ListItem>
-        ))}
-      </List>
+      {isLoading ? (
+        <div>Loading ...</div>
+      ) : (
+        <List>
+          {movies.map((item) => (
+            <ListItem key={item.id}>
+              <S.Title>
+                {item.name} • {item.year}
+              </S.Title>
+              <S.Director>
+                Directed by: {item.director.name} - {item.director.country}
+              </S.Director>
+              <S.Producers>
+                Produced by:{' '}
+                {item.producers.map((prod, idx) => (
+                  <span key={idx}>
+                    {prod.name}
+                    {idx < item.producers.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+              </S.Producers>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Base>
   );
 };
