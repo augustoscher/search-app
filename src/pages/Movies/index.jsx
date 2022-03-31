@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Base from '../../templates/Base';
+import List, { ListItem } from '../../components/List';
 import client from '../../graphql';
 import MOVIE_QUERY from 'graphql/queries/movies';
 
@@ -39,16 +40,16 @@ const Movies = () => {
       {isLoading && <b>Loading...</b>}
       {isError && <b>ERROR</b>}
 
-      <S.MovieList>
+      <List>
         {movies.map((item) => (
-          <S.MovieItem key={item.id}>
-            <S.MovieTitle>
+          <ListItem key={item.id}>
+            <S.Title>
               {item.name} • {item.year}
-            </S.MovieTitle>
-            <S.MovieDirector>
+            </S.Title>
+            <S.Director>
               Directed by: {item.director.name} - {item.director.country}
-            </S.MovieDirector>
-            <S.MovieProducers>
+            </S.Director>
+            <S.Producers>
               Produced by:{' '}
               {item.producers.map((prod, idx) => (
                 <span key={idx}>
@@ -56,10 +57,10 @@ const Movies = () => {
                   {idx < item.producers.length - 1 ? ', ' : ''}
                 </span>
               ))}
-            </S.MovieProducers>
-          </S.MovieItem>
+            </S.Producers>
+          </ListItem>
         ))}
-      </S.MovieList>
+      </List>
     </Base>
   );
 };
