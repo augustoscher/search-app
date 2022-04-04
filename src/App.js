@@ -1,9 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 
-import Home from './pages/Home';
-import Movies from './pages/Movies';
-import Series from './pages/Series';
-import Posts from './pages/Posts';
+import Home from './pages/Home'
+import Movies from './pages/Movies'
+import Series from './pages/Series'
+import Posts from './pages/Posts'
 
 const App = () => (
   <Router>
@@ -33,6 +33,6 @@ const App = () => (
       </Routes>
     </div>
   </Router>
-);
+)
 
-export default App;
+export default App
