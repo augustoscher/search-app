@@ -1,62 +1,55 @@
-import { useEffect, useState } from 'react';
+import useFetch from 'hooks/UseFetch'
+import { FIND_POSTS_QUERY } from 'graphql/queries/posts'
+import Base from '../../templates/Base'
+import List, { ListItem } from '../../components/List'
+import Input, { InputWrapper } from 'components/Input'
 
-import client from '../../graphql';
-import POSTS_QUERY from 'graphql/queries/posts';
-import Base from '../../templates/Base';
-import List, { ListItem } from '../../components/List';
-
-import * as S from './styles';
+import * as S from './styles'
 
 const Posts = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [posts, setPosts] = useState([]);
+  const { data, isLoading, isError, setVariables } = useFetch({
+    initialQuery: FIND_POSTS_QUERY,
+    initialVariables: {},
+    initialData: []
+  })
+  console.log(data)
+  const { findPosts: posts = [] } = data
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setIsLoading(true);
-      setIsError(false);
-
-      try {
-        const { data } = await client.query({
-          query: POSTS_QUERY,
-        });
-
-        setPosts(data.posts);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const handleChange = (value) => {
+    setVariables({ queryTerm: value })
+  }
 
   return (
     <Base>
       <h1>Posts</h1>
 
-      {isError && <div>Error...</div>}
-      {isLoading && <div>Loading...</div>}
+      <InputWrapper>
+        <Input onChange={(e) => handleChange(e.target.value)} />
+      </InputWrapper>
 
-      <List>
-        <S.Grid>
-          {posts.map((post) => (
-            <ListItem key={post.id}>
-              <S.PostWrapper>
-                <S.Box></S.Box>
-                <S.Description>
-                  <p>{post.title}</p>
-                  <p>{post.author}</p>
-                </S.Description>
-              </S.PostWrapper>
-            </ListItem>
-          ))}
-        </S.Grid>
-      </List>
+      {isError && <S.Message>Something went wrong ...</S.Message>}
+
+      {isLoading ? (
+        <S.Message>Loading ...</S.Message>
+      ) : (
+        <List>
+          <S.Grid>
+            {posts.map((post) => (
+              <ListItem key={post.id}>
+                <S.PostWrapper>
+                  <S.Box></S.Box>
+                  <S.Description>
+                    <p>{post.title}</p>
+                    <p>{post.author}</p>
+                  </S.Description>
+                </S.PostWrapper>
+              </ListItem>
+            ))}
+          </S.Grid>
+        </List>
+      )}
     </Base>
-  );
-};
+  )
+}
 
-export default Posts;
+export default Posts
