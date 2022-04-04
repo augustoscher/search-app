@@ -12,7 +12,8 @@ export const Grid = styled.div`
 `;
 
 export const Box = styled.div`
-  background-color: gray;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.5);
   height: 300px;
   width: 300px;
 `;

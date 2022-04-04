@@ -9,8 +9,10 @@ export const Wrapper = styled.div`
 `
 
 export const Content = styled.div`
-  padding: 1.6rem;
   flex: 1 0 auto;
+  padding: 1.6rem 0;
+  width: 80%;
+  margin: 0 auto;
 `
 
 export const SectionFooter = styled.section`
