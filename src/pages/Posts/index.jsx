@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce'
+
 import useFetch from 'hooks/UseFetch'
 import { FIND_POSTS_QUERY } from 'graphql/queries/posts'
 import Base from '../../templates/Base'
@@ -12,12 +14,12 @@ const Posts = () => {
     initialVariables: {},
     initialData: []
   })
-  console.log(data)
+
   const { findPosts: posts = [] } = data
 
-  const handleChange = (value) => {
+  const handleChange = debounce((value) => {
     setVariables({ queryTerm: value })
-  }
+  }, 500)
 
   return (
     <Base>

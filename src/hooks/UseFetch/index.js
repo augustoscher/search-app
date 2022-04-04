@@ -18,7 +18,6 @@ const useFetch = ({ initialQuery, initialVariables, initialData }) => {
           query,
           variables
         })
-        console.log(data)
         setData(data)
       } catch (error) {
         setIsError(true)
