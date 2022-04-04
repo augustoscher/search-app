@@ -1,6 +1,6 @@
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client')
 
-const POSTS_QUERY = gql`
+export const POSTS_QUERY = gql`
   query PostsQuery {
     posts {
       id
@@ -9,6 +9,15 @@ const POSTS_QUERY = gql`
       body
     }
   }
-`;
+`
 
-export default POSTS_QUERY;
+export const FIND_POSTS_QUERY = gql`
+  query FindPostQuery($queryTerm: String) {
+    findPosts(queryTerm: $queryTerm) {
+      id
+      title
+      author
+      body
+    }
+  }
+`
