@@ -1,31 +1,36 @@
-import { useState, useEffect } from 'react';
-import client from '../../graphql/index';
+import { useState, useEffect } from 'react'
+import client from '../../graphql/index'
 
-const useFetch = ({ initialQuery, initialData }) => {
-  const [data, setData] = useState(initialData);
-  const [query, setQuery] = useState(initialQuery);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+const useFetch = ({ initialQuery, initialVariables, initialData }) => {
+  const [data, setData] = useState(initialData)
+  const [query, setQuery] = useState(initialQuery)
+  const [variables, setVariables] = useState(initialVariables)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-      setIsError(false);
+      setIsLoading(true)
+      setIsError(false)
 
       try {
-        const { data } = await client.query({ query });
-        setData(data);
+        const { data } = await client.query({
+          query,
+          variables
+        })
+        console.log(data)
+        setData(data)
       } catch (error) {
-        setIsError(true);
+        setIsError(true)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, [query]);
+    fetchData()
+  }, [query, variables])
 
-  return { data, isLoading, isError, doFetch: setQuery };
-};
+  return { data, isLoading, isError, doFetch: setQuery, setVariables }
+}
 
-export default useFetch;
+export default useFetch
