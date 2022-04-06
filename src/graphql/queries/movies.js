@@ -1,4 +1,4 @@
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client')
 
 const MOVIE_QUERY = gql`
   query MoviesQuery {
@@ -15,6 +15,6 @@ const MOVIE_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default MOVIE_QUERY;
+export default MOVIE_QUERY

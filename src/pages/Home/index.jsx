@@ -1,9 +1,21 @@
+import { useEffect, useState } from 'react'
 import Base from '../../templates/Base'
 
-const Home = () => (
-  <Base>
-    <h1>Home</h1>
-  </Base>
-)
+const Home = () => {
+  const [toke] = useState(() => {
+    let t = window.localStorage.getItem('token')
+    return t || 'xunda'
+  })
 
-export default Home;
+  useEffect(() => {
+    window.addEventListener('mousemove')
+  }, [])
+
+  return (
+    <Base>
+      <h1>Home</h1>
+      {toke}
+    </Base>
+  )
+}
+export default Home

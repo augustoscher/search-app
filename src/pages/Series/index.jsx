@@ -1,17 +1,17 @@
-import Base from '../../templates/Base';
-import useFetch from 'hooks/UseFetch';
-import SERIE_QUERY from 'graphql/queries/series';
-import List, { ListItem } from '../../components/List';
+import Base from '../../templates/Base'
+import useFetch from 'hooks/UseFetch'
+import SERIE_QUERY from 'graphql/queries/series'
+import List, { ListItem } from '../../components/List'
 
-import * as S from './styles';
+import * as S from './styles'
 
 const Series = () => {
   const { data, isLoading, isError } = useFetch({
     initialQuery: SERIE_QUERY,
-    initialData: [],
-  });
+    initialData: []
+  })
 
-  const { series = [] } = data;
+  const { series = [] } = data
 
   return (
     <Base>
@@ -36,7 +36,7 @@ const Series = () => {
         </List>
       )}
     </Base>
-  );
-};
+  )
+}
 
-export default Series;
+export default Series

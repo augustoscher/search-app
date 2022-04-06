@@ -1,4 +1,4 @@
-const { gql } = require('@apollo/client');
+const { gql } = require('@apollo/client')
 
 const SERIE_QUERY = gql`
   query SerieQuery {
@@ -12,6 +12,6 @@ const SERIE_QUERY = gql`
       }
     }
   }
-`;
+`
 
-export default SERIE_QUERY;
+export default SERIE_QUERY

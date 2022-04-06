@@ -1,17 +1,17 @@
-import Base from '../../templates/Base';
-import useFetch from 'hooks/UseFetch';
-import List, { ListItem } from '../../components/List';
-import MOVIE_QUERY from 'graphql/queries/movies';
+import Base from '../../templates/Base'
+import useFetch from 'hooks/UseFetch'
+import List, { ListItem } from '../../components/List'
+import MOVIE_QUERY from 'graphql/queries/movies'
 
-import * as S from './styles';
+import * as S from './styles'
 
 const Movies = () => {
   const { data, isLoading, isError } = useFetch({
     initialQuery: MOVIE_QUERY,
-    initialData: [],
-  });
+    initialData: []
+  })
 
-  const { movies = [] } = data;
+  const { movies = [] } = data
 
   return (
     <Base>
@@ -45,7 +45,7 @@ const Movies = () => {
         </List>
       )}
     </Base>
-  );
-};
+  )
+}
 
-export default Movies;
+export default Movies

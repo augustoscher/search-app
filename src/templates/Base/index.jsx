@@ -5,7 +5,6 @@ import * as S from './styles'
 
 const Base = ({ children }) => (
   <S.Wrapper>
-
     <S.Content>{children}</S.Content>
 
     <S.SectionFooter>
@@ -15,7 +14,7 @@ const Base = ({ children }) => (
 )
 
 Base.propTypes = {
-  children: PropTypes.node,
-};
+  children: PropTypes.node
+}
 
 export default Base
