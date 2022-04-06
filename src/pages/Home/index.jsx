@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import Base from '../../templates/Base'
 
 const Home = () => {
-  const [toke] = useState(() => {
-    let t = window.localStorage.getItem('token')
-    return t || 'xunda'
-  })
+  // const [toke] = useState(() => {
+  //   let t = window.localStorage.getItem('token')
+  //   return t || 'xunda'
+  // })
 
-  useEffect(() => {
-    window.addEventListener('mousemove')
-  }, [])
+  // useEffect(() => {
+  //   window.addEventListener('mousemove')
+  // }, [])
 
   return (
     <Base>
       <h1>Home</h1>
-      {toke}
+      {/* {toke} */}
     </Base>
   )
 }
